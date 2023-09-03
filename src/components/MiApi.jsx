@@ -1,28 +1,27 @@
 
 import { useState, useEffect } from "react"
 
-const MiApi = ({ info, setInfo }) => {
+const MiApi = ({ infos, setInfos }) => {
   // const [moneda, setMoneda] = useState('uf')
+  const [indicador, setIndicador] = useState('')
 
 
   useEffect(() => {
-    consultarApi()
-  }, [])
+      consultarApi()
+  }, [indicador])
     
   const consultarApi = async () => {
-    // let moneda = 'uf'
-    console.log('dentro de la función consultarApi')
-    // const url = `https://mindicador.cl/api/`
-    const url = 'https://jsonplaceholder.typicode.com/users'
-    // const res = await fetch(url)
-    // const info = await res.json()
-    // 
-    fetch(url)
-      .then((res) => res.json())
-      .then((info) => {
-        // console.log(info)
-        setInfo(info)})
-        // 
+    const url = `https://mindicador.cl/api/${indicador}`
+    // const url = 'https://jsonplaceholder.typicode.com/users'
+    const respuesta = await fetch(url);
+    const data = await respuesta.json();
+    // console.log(data.serie)
+    setInfos([...infos,
+       data ])
+  }
+
+  const handleChange = (e) => {
+    setIndicador(e.target.value)
   }
 
   return (
@@ -33,8 +32,16 @@ const MiApi = ({ info, setInfo }) => {
       {/* <p>{info}</p> */}
       
       <div className="card">
+
+        <input
+          type='text'
+          name="indicador"
+          value={indicador}
+          onChange={handleChange}
+        />
+        
         <ul>
-          {info?.map((dato) => <li key={dato.id}> {dato.name} -- {dato.username} </li>)}
+          {infos.map((info) => <li key={info.fecha}> {info.fecha} -- ${info.uf.valor}</li>)}
         </ul>
       </div>
       

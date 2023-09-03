@@ -5,7 +5,7 @@ import MiApi from './components/MiApi'
 // import Buscador from './components/Buscador'
 
 function App() {
-  const [info, setInfo] = useState([])
+  const [infos, setInfos] = useState([])
   // const [filtro, setFiltro] = useState('')
 
   // console.log('lo que recibe App', info)
@@ -28,7 +28,7 @@ function App() {
 
         {/* <Buscador setFiltro={setFiltro} /> */}
 
-        <MiApi info={info} setInfo={setInfo} />
+        <MiApi infos={infos} setInfos={setInfos} />
 
       </div>
     </>
