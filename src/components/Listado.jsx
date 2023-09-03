@@ -12,8 +12,14 @@ const Listado = ({indicador, setIndicaddor}) => {
     const response = await fetch(url);
     const data = await response.json();
     console.log(data)
-    if(data.codigo) {
-        setIndicadores(data.map(dato => dato.valor))
+    console.log('código del indicador', data.codigo)
+    console.log('nombre del indicador', data.nombre)
+    console.log('serie del indicador', data.serie)
+    if(data.serie != []) {
+        const resultados = data.map(dato => dato.serie);
+        console.log('contenido de resultados', resultados)
+        setIndicadores(resultados)
+        console.log('datos del actual indicador',indicadores)
       }
     }
 
@@ -24,13 +30,16 @@ const Listado = ({indicador, setIndicaddor}) => {
     return (
       <>
         <h3>Listado</h3>
-        <select
+        <p>Esta por revisar las estadísticas del indicador {indicador}</p>
+        <ul>
+            {<li>{indicadores.fecha}</li>}
+        </ul>
+        {/* <select
           value={indicador} 
           onChange={handleIndicador}
         >
-          <option placeholder="Unidad de Fomento" defaultValue={indicador}></option>
           {indicadores.map(op => <option key={op} value={op} > {op} </option>)}
-        </select>
+        </select> */}
       </>
       
     )
