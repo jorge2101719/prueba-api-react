@@ -1,39 +1,49 @@
 
 import { useState, useEffect } from "react"
 
-const MiApi = ({ indicador, filtro }) => {
-
-  const [indicadores, setIndicadores] = useState([])
+const MiApi = ({ indicador, setIndicador,filtro }) => {
+  const [info, setInfo] = useState([])
 
   useEffect(() => {
-      fetchIndicadores()
+    fetchIndicadores()
   }, [indicador])
-    
+
   const fetchIndicadores = async () => {
-    const url = `https://mindicador.cl/${indicador}`
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data);
+    const url = `https://mindicador.cl/api/${indicador}`
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data)
     console.log('código del indicador', data.codigo)
     console.log('nombre del indicador', data.nombre)
     console.log('serie del indicador', data.serie)
-
-    if(data.serie != []) {
-      const resultados = data.map(dato => dato.serie);
-      console.log('contenido de resultados', resultados)
-      // setIndicadores(...indicadores, resultados)
-      console.log('datos del actual indicador',indicadores)
+    if(data.serie) {
+        const resultados = data.serie.map(dato => dato);
+        console.log('contenido de resultados', resultados)
+        setInfo(resultados)
+        console.log('datos del actual indicador', info)
+      }
     }
-  }
 
-  const indicadoresFiltrados = indicadores.filter(dato => dato.toLoweCase().includes(filtro.toLoweCase()))
+    const handleIndicador = (e) => {
+      setIndicador(e.target.value);
+    }
+
+  const indicadoresFiltrados = info.filter(dato => dato.fecha.toLowerCase().includes(filtro.toLowerCase()))
 
   return (
     <div>
       <h3>A continuación se deplegarán las estadísticas del indicador {indicador}</h3>
+      <select 
+        value={indicador}
+        onChange={handleIndicador}>
+          <option value={'dolar'}>dolar</option>
+          <option value={'uf'}>uf</option>
+          <option value={'euro'}>euro</option>
+        </select><br/>
+
       <ul>
-        <li>Datos</li>
-        {indicadoresFiltrados.map(dato => <li>{dato.serie.fecha}</li>)}
+        {/* {<li>{info.fecha}</li>} */}
+        {indicadoresFiltrados.map(dato => <li key={dato.fecha}>{dato.fecha} ----- ${dato.valor}</li>)}
       </ul>
     </div>
   )
