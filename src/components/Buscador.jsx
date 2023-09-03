@@ -1,10 +1,10 @@
 const Buscador = ({ setFiltro }) => {
   return (
     <>
-      <h3>Buscador</h3>
+      <h3>Ingrese una fecha específica para la búsqueda</h3>
         <input 
           type="text"
-          placeholder="Buscador"
+          placeholder="Ingrese una fecha"
           onChange={(e) => setFiltro(e.target.value)}
         />
     </>

@@ -1,7 +1,8 @@
-
 import { useState, useEffect } from "react"
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Table from 'react-bootstrap/Table'
 
-const MiApi = ({ indicador, setIndicador,filtro }) => {
+const MiApi = ({ indicador, setIndicador, filtro }) => {
   const [info, setInfo] = useState([])
 
   useEffect(() => {
@@ -12,15 +13,10 @@ const MiApi = ({ indicador, setIndicador,filtro }) => {
     const url = `https://mindicador.cl/api/${indicador}`
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data)
-    console.log('código del indicador', data.codigo)
-    console.log('nombre del indicador', data.nombre)
-    console.log('serie del indicador', data.serie)
+
     if(data.serie) {
         const resultados = data.serie.map(dato => dato);
-        console.log('contenido de resultados', resultados)
         setInfo(resultados)
-        console.log('datos del actual indicador', info)
       }
     }
 
@@ -28,23 +24,43 @@ const MiApi = ({ indicador, setIndicador,filtro }) => {
       setIndicador(e.target.value);
     }
 
-  const indicadoresFiltrados = info.filter(dato => dato.fecha.toLowerCase().includes(filtro.toLowerCase()))
+  const indicadoresFiltrados = info.filter(dato => {
+    return (
+      dato.fecha.slice(0,10).split('-').reverse().join('-').toLowerCase().includes(filtro.toLowerCase())
+    )
+  })
 
   return (
     <div>
-      <h3>A continuación se deplegarán las estadísticas del indicador {indicador}</h3>
-      <select 
-        value={indicador}
-        onChange={handleIndicador}>
-          <option value={'dolar'}>dolar</option>
-          <option value={'uf'}>uf</option>
-          <option value={'euro'}>euro</option>
-        </select><br/>
+      
+      <div>
+        <select 
+          value={indicador}
+          onChange={handleIndicador}>
+            <option value={'dolar'}>Dólar</option>
+            <option value={'uf'}>UF</option>
+            <option value={'euro'}>Euro</option>
+            <option value={'utm'}>UTM</option>
+        </select>
+      </div>
 
-      <ul>
-        {/* {<li>{info.fecha}</li>} */}
-        {indicadoresFiltrados.map(dato => <li key={dato.fecha}>{dato.fecha} ----- ${dato.valor}</li>)}
-      </ul>
+      <div>
+        <h3>A continuación se deplegarán las estadísticas del indicador {indicador}</h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {indicadoresFiltrados.map(dato => <tr key={dato.fecha}>
+              <td>{dato.fecha.slice(0,10).split('-').reverse().join('-')}</td>
+              <td>{dato.valor.toFixed(2).replace('.', ',')}</td>
+            </tr>)}
+          </tbody>          
+        </Table>
+      </div>
     </div>
   )
 }
