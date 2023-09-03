@@ -2,33 +2,23 @@ import { useState } from 'react'
 import './App.css'
 
 import MiApi from './components/MiApi'
-// import Buscador from './components/Buscador'
+import Buscador from './components/Buscador'
+import Listado from './components/Listado'
 
 function App() {
-  const [infos, setInfos] = useState([])
-  // const [filtro, setFiltro] = useState('')
-
-  // console.log('lo que recibe App', info)
-
-  // const filtrados = info.filter((dato) => {
-    // return (
-      // dato.serie.toLowerCase().includes(filtro.toLowerCase())
-      // datoCol.correo.toLowerCase().includes(filtro.toLowerCase()) ||
-      // datoCol.edad.toLowerCase().includes(filtro.toLowerCase()) ||
-      // datoCol.cargo.toLowerCase().includes(filtro.toLowerCase()) ||
-      // datoCol.telefono.toLowerCase().includes(filtro.toLowerCase())
-  // )})
-
-
+  const [indicador, setIndicador] = useState('uf')
+  const [filtro, setFiltro] = useState('')
 
   return (
     <>
       <div>
-        <h1>Elemento App</h1>
+        <h1>App para buscar indicadores económicos</h1>
 
-        {/* <Buscador setFiltro={setFiltro} /> */}
+        <Listado indicador={indicador} setIndicador={setIndicador} />
 
-        <MiApi infos={infos} setInfos={setInfos} />
+        <Buscador setFiltro={setFiltro} />
+        
+        <MiApi indicador={indicador} filtro={filtro} />
 
       </div>
     </>
