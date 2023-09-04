@@ -3,7 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Badge, Table} from 'react-bootstrap'
 
 const MiApi = ({ indicador, setIndicador, filtro }) => {
-  const [info, setInfo] = useState([])
+  const [info, setInfo] = useState([]);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetchIndicadores()
@@ -11,13 +12,15 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
 
   const fetchIndicadores = async () => {
     const url = `https://mindicador.cl/api/${indicador}`
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if(data.serie) {
+    try{
+      const response = await fetch(url);
+      const data = await response.json();
+      if(data.serie != []) {
         const resultados = data.serie.map(dato => dato);
         setInfo(resultados)
-      }
+      }}
+    catch (error) {() => setError(error)}
+
     }
 
     const handleIndicador = (e) => {
@@ -31,8 +34,7 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
   })
 
   return (
-    <div>
-      
+    <div className="miapi">
       <Badge className="bg-primary p-3">
         <label htmlFor="select" className="my-2"><h4>Seleccione un Indicador de la lista</h4></label><br/>
         <select 
@@ -49,7 +51,8 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
       </Badge>
 
       <div className="my-5">
-        <h4>A continuación se deplegarán las estadísticas del indicador <b>{indicador}</b></h4>
+        <h4>Estadísticas del indicador <b>{indicador}</b></h4>
+        {/* <p>{error ? <p>Error: {error}</p> : null}</p> */}
         <Table className="my-5">
           <thead>
             <tr>
