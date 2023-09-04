@@ -13,15 +13,15 @@ function App() {
 
   return (
     <>
-      <div className='contenedor-principal'>
-        <h1>Índices económicos</h1>
+      <div className='contenedor-principal bg-primary p-1'>
+        <h1 className='my-3'>Índices económicos</h1>
 
-        <div className='componentes'>
-          <div className='miapi'>
+        <div className='componentes bg-secondary'>
+          <div className='miapi bg-info m-1'>
             <MiApi indicador={indicador} filtro={filtro} setIndicador={setIndicador} />
           </div>
 
-          <div className='buscador'>
+          <div className='buscador bg-info m-1'>
             <Buscador setFiltro={setFiltro} />
           </div>
         </div>
