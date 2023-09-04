@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -12,15 +13,18 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1>App para buscar indicadores económicos</h1>
+      <div className='contenedor-principal'>
+        <h1>Índices económicos</h1>
 
-        <div>
-          <Buscador setFiltro={setFiltro} />
+        <div className='componentes'>
+          <div className='miapi'>
+            <MiApi indicador={indicador} filtro={filtro} setIndicador={setIndicador} />
+          </div>
+
+          <div className='buscador'>
+            <Buscador setFiltro={setFiltro} />
+          </div>
         </div>
-
-        <MiApi indicador={indicador} filtro={filtro} setIndicador={setIndicador} />
-
       </div>
     </>
   )

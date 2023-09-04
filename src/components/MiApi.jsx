@@ -34,9 +34,10 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
     <div>
       
       <div>
+        <label htmlFor="select"><h4>Seleccione un Indicador</h4></label><br/>
         <select 
           value={indicador}
-          onChange={handleIndicador}>
+          onChange={handleIndicador} className="seleccion">
             <option value={'dolar'}>Dólar</option>
             <option value={'uf'}>UF</option>
             <option value={'euro'}>Euro</option>

@@ -1,7 +1,7 @@
 const Buscador = ({ setFiltro }) => {
   return (
     <>
-      <h3>Ingrese una fecha específica para la búsqueda</h3>
+      <h4>Ingrese una fecha específica para la búsqueda</h4>
         <input 
           type="text"
           placeholder="Ingrese una fecha"

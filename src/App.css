@@ -18,6 +18,50 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 2%;
+  background-color: royalblue;
+}
+
+.componentes {
+  display: flex;
+  background-color: yellowgreen;
+  border-radius: 10px;
+}
+
+.buscador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 5%;
+  border-radius: 10px;
+}
+
+.buscador input {
+  background-color: white;
+  color: black;
+  width: 35%;
+  border-radius: 5px;
+}
+
+.miapi {
+  padding: 5%;
+  width: 50%;
+  border-radius: 10px;
+}
+
+.seleccion {
+  background-color: white;
+  color: black;
+  width: 30%;
+  border-radius: 5px;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
