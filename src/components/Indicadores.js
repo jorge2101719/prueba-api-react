@@ -4,10 +4,6 @@ export const indicadores = [
     clave: 'dolar'
   },
   {
-    nombre: 'Dólar de intercambio',
-    clave: 'dolar_intercambio'
-  },
-  {
     nombre: 'Unidad de Fomento',
     clave: 'uf'
   },
