@@ -9,6 +9,11 @@ const Grafico = ({ indicador }) => {
   const [infoGrafico, setInfoGrafico] = useState([])
   const options = {
     responsive: true,
+    // scales: {
+    //   y: {
+        // min: 0,
+    //   },
+    // }
   }
 
   useEffect(() => {
@@ -32,18 +37,14 @@ const Grafico = ({ indicador }) => {
   const labels = infoGrafico.map(dato => dato.fecha.slice(0,10).split('-').reverse().join('-')).slice(0,7)
   const valores = infoGrafico.map(dato => dato.valor).slice(0,7)
 
-  console.log(valores)
-  console.log(labels)
-
-
-  console.log(labels)
-
   const data = useMemo(() => {
     return {
       datasets: [
         {
-            label: `${indicador} (últimos 7 días)`,
-            data: valores,
+          label: `${indicador} (últimos 7 días)`,
+          data: valores,
+          tension: .3,
+          borderColor: 'blue',
         }
       ],
       labels
