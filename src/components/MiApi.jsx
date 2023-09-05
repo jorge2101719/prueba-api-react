@@ -3,12 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Badge, Table} from 'react-bootstrap'
 import { indicadores } from './Indicadores'
 
-const MiApi = ({ indicador, setIndicador, filtro }) => {
+const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
   const [info, setInfo] = useState([]);
   const [listaIndicadores, setListaIndicadores] = useState(indicadores)
-  const [error, setError] = useState(null)
-
-  console.log(listaIndicadores)
   
   useEffect(() => {
     fetchDatosIndicador()
@@ -22,9 +19,9 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
       if(data.serie != []) {
         const resultados = data.serie.map(dato => dato);
         setInfo(resultados)
-      }}
-    catch (error) {() => setError(error)}
-    }
+      }
+    } catch (error) {() => setError(error)}
+  }
 
     const handleIndicador = (e) => {
       setIndicador(e.target.value);
@@ -46,14 +43,14 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
         <select 
           value={indicador}
           onChange={handleIndicador} className="seleccion">
-            {listaIndicadores.map(index => <option key={index.value} value={index.clave}> {index.nombre} </option> )}
+            {listaIndicadores.map(index => <option key={index.clave} value={index.clave}> {index.nombre} </option> )}
         </select>
       </Badge>
 
       <div className="my-5">
         <h4>Estadísticas del indicador <b>{indicador}</b></h4>
         <p>{error ? <p>Error: {error}</p> : null}</p>
-        <Table className="my-5">
+        <Table className="my-5" hover striped variant="dark">
           <thead>
             <tr>
               <th>Fecha</th>
