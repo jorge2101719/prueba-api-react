@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Badge, Table} from 'react-bootstrap'
+import { indicadores } from './Indicadores'
 
 const MiApi = ({ indicador, setIndicador, filtro }) => {
   const [info, setInfo] = useState([]);
+  const [listaIndicadores, setListaIndicadores] = useState(indicadores)
   const [error, setError] = useState(null)
 
+  console.log(listaIndicadores)
+  
   useEffect(() => {
-    fetchIndicadores()
-  }, [indicador])
+    fetchDatosIndicador()
+  }, [indicador]);
 
-  const fetchIndicadores = async () => {
-    const url = `https://mindicador.cl/api/${indicador}`
+  const fetchDatosIndicador = async () => {
+    const url = `https://mindicador.cl/api/${indicador}`;
     try{
       const response = await fetch(url);
       const data = await response.json();
@@ -20,7 +24,6 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
         setInfo(resultados)
       }}
     catch (error) {() => setError(error)}
-
     }
 
     const handleIndicador = (e) => {
@@ -37,22 +40,19 @@ const MiApi = ({ indicador, setIndicador, filtro }) => {
     <div className="miapi">
       <Badge className="bg-primary p-3">
         <label htmlFor="select" className="my-2"><h4>Seleccione un Indicador de la lista</h4></label><br/>
+        {/* <ul> */}
+          {/* {listaIndicadores.map(() => <li key={index.clave}> {index.nombre} </li>)} */}
+        {/* </ul> */}
         <select 
           value={indicador}
           onChange={handleIndicador} className="seleccion">
-            <option value={'dolar'}>Dólar</option>
-            <option value={'uf'}>UF</option>
-            <option value={'euro'}>Euro</option>
-            <option value={'utm'}>UTM</option>
-            <option value={'ivp'}>IVP</option>
-            <option value={'bitcoin'}>Bitcoin</option>
-            <option value={'libra_cobre'}>Libra de Cobre</option>
+            {listaIndicadores.map(index => <option key={index.value} value={index.clave}> {index.nombre} </option> )}
         </select>
       </Badge>
 
       <div className="my-5">
         <h4>Estadísticas del indicador <b>{indicador}</b></h4>
-        {/* <p>{error ? <p>Error: {error}</p> : null}</p> */}
+        <p>{error ? <p>Error: {error}</p> : null}</p>
         <Table className="my-5">
           <thead>
             <tr>
