@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
 const Grafico = ({ indicador }) => {
-  const [infoGrafico, setInfoGrafico] = useState([])
+  const [infoGrafico, setInfoGrafico] = useState([]);
   const options = {
     responsive: true,
     fill: true,
@@ -20,11 +20,7 @@ const Grafico = ({ indicador }) => {
   const labels = infoGrafico.map(dato => dato.fecha.slice(0,10).split('-').reverse().join('-')).slice(0,7)
   const valores = infoGrafico.map(dato => dato.valor)
 
-//   console.log(labels.slice(0,5))
-
-  
-
-//   labels.reverse()
+  labels.reverse()
 
   const data = useMemo(() => {
     return {
@@ -61,7 +57,5 @@ const Grafico = ({ indicador }) => {
 
   return <Line data={data} options={options} />
 }
-
-  
 
 export default Grafico

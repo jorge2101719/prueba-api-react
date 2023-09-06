@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Badge, Table} from 'react-bootstrap'
 import { indicadores } from './Indicadores'
@@ -6,15 +6,10 @@ import { indicadores } from './Indicadores'
 const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
   const [info, setInfo] = useState([]);
   const [listaIndicadores, setListaIndicadores] = useState(indicadores)
-  const inputRef = useRef();
   
   useEffect(() => {
     fetchDatosIndicador()
   }, [indicador]);
-
-  useEffect(() =>{
-    inputRef.current.focus();
-  }, []);
 
   const fetchDatosIndicador = async () => {
     const url = `https://mindicador.cl/api/${indicador}`;
@@ -45,7 +40,6 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
         <select 
           value={indicador}
           onChange={handleIndicador} className="seleccion">
-            <option ref={inputRef} selected>Selecciones un indicador</option>
             {listaIndicadores.map(index => <option key={index.clave} value={index.clave}> {index.nombre} </option> )}
         </select>
       </Badge>
