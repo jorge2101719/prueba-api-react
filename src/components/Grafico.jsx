@@ -15,9 +15,6 @@ const Grafico = ({ indicador }) => {
   const valores = infoGrafico.map(dato => dato.valor)
   const labels = infoGrafico.map(dato => dato.fecha.slice(0,10).split('-').reverse().join('-')).slice(0,7)
 
-
-  labels.reverse()
-
   const data = useMemo(() => {
     return {
       datasets: [
@@ -32,7 +29,7 @@ const Grafico = ({ indicador }) => {
       ],
       labels
     }
-  }, [indicador]);
+  }, [indicador, infoGrafico]);
 
   useEffect(() => {
     fetchDatosIndicador()
