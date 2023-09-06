@@ -24,7 +24,7 @@ function App() {
             <MiApi indicador={indicador} filtro={filtro} setIndicador={setIndicador} error={error} setError={setError} />
           </div>
 
-          <div className='buscador bg-info m-1'>
+          <div className='buscador bg-info m-1 pt-5'>
             <div><Buscador setFiltro={setFiltro} /></div>
             <div><Grafico indicador={indicador} /></div>
           </div>

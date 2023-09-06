@@ -34,7 +34,7 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
   })
 
   return (
-    <div className="miapi">
+    <div className="miapi p-5">
       <Badge className="bg-primary p-3">
         <label htmlFor="select" className="my-2"><h4>Seleccione un Indicador de la lista</h4></label><br/>
         <select 
