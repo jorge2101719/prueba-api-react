@@ -10,15 +10,11 @@ const Grafico = ({ indicador }) => {
   const options = {
     responsive: true,
     fill: true,
-    // scales: {
-    //   y: {
-        // min: 0,
-    //   },
-    // }
   }
 
-  const labels = infoGrafico.map(dato => dato.fecha.slice(0,10).split('-').reverse().join('-')).slice(0,7)
   const valores = infoGrafico.map(dato => dato.valor)
+  const labels = infoGrafico.map(dato => dato.fecha.slice(0,10).split('-').reverse().join('-')).slice(0,7)
+
 
   labels.reverse()
 
