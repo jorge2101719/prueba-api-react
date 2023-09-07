@@ -33,6 +33,13 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
     )
   })
 
+  const Lista = () => {
+    return indicadoresFiltrados.map(dato => <tr key={dato.fecha}>
+      <td>{dato.fecha.slice(0,10).split('-').reverse().join('-')}</td>
+      <td>{dato.valor.toFixed(2).replace('.', ',')}</td>
+    </tr>)
+  }
+
   return (
     <div className="miapi p-5">
       <Badge className="bg-primary p-3">
@@ -55,10 +62,7 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
             </tr>
           </thead>
           <tbody>
-            {indicadoresFiltrados.map(dato => <tr key={dato.fecha}>
-              <td>{dato.fecha.slice(0,10).split('-').reverse().join('-')}</td>
-              <td>{dato.valor.toFixed(2).replace('.', ',')}</td>
-            </tr>)}
+            <Lista />
           </tbody>          
         </Table>
       </div>
