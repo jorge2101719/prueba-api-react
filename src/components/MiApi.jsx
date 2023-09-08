@@ -64,7 +64,7 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
             </tr>
           </thead>
           <tbody>
-            {indicadoresFiltrados.map(dato => (<Lista key={dato.id} fecha={dato.fecha} valor={dato.valor} />))}
+            {indicadoresFiltrados.map(dato => <Lista key={dato.fecha} fecha={dato.fecha} valor={dato.valor} />)}
           </tbody>          
         </Table>
       </div>
