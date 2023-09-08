@@ -27,6 +27,15 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
     setIndicador(e.target.value);
   }
 
+  const Lista = ({fecha, valor}) => {
+    return (
+      <tr>
+        <td>{fecha.slice(0,10).split('-').reverse().join('-')}</td>
+        <td>{valor.toFixed(2).replace('.', ',')}</td>
+      </tr>
+    )
+  }
+
   const indicadoresFiltrados = info.filter(dato => {
     return (
       dato.fecha.slice(0,10).split('-').reverse().join('-').toLowerCase().includes(filtro.toLowerCase())
@@ -55,10 +64,7 @@ const MiApi = ({ indicador, setIndicador, filtro, error, setError }) => {
             </tr>
           </thead>
           <tbody>
-            {indicadoresFiltrados.map(dato => <tr key={dato.fecha}>
-              <td>{dato.fecha.slice(0,10).split('-').reverse().join('-')}</td>
-              <td>{dato.valor.toFixed(2).replace('.', ',')}</td>
-            </tr>)}
+            {indicadoresFiltrados.map(dato => (<Lista key={dato.id} fecha={dato.fecha} valor={dato.valor} />))}
           </tbody>          
         </Table>
       </div>
